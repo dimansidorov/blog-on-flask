@@ -1,0 +1,8 @@
+.footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon {
+    padding: 3px;
+}

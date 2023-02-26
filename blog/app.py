@@ -1,8 +1,14 @@
 from flask import Flask
+from blog.articles.views import articles
+from blog.users.views import users
 
-app = Flask(__name__)
+
+def create_app() -> Flask:
+    app = Flask(__name__)
+    register_blueprints(app)
+    return app
 
 
-@app.route('/')
-def index():
-    return '<h1> Стартовая страница </h1>'
+def register_blueprints(app: Flask):
+    app.register_blueprint(blueprint=articles, name='articles')
+    app.register_blueprint(blueprint=users, name='users')
