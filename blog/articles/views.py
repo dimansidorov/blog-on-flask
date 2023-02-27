@@ -8,12 +8,12 @@ articles = Blueprint(
 )
 
 MENU = {
-    'Статьи': 'articles.articles_list',
-    'Пользователи': 'users.users_list',
+    'Статьи': 'articles.list',
+    'Пользователи': 'users.list',
     # 'О сайте': '#'
 }
 
 
-@articles.route('/')
+@articles.route('/', endpoint='list')
 def articles_list():
     return render_template('articles/articles.html', title='Статьи', menu=MENU)
