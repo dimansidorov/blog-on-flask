@@ -3,13 +3,13 @@ from blog.articles.views import articles
 from blog.auth.views import auth_app, login_manager
 from blog.users.views import users
 from blog.database import db
+import os
 
 
 def create_app() -> Flask:
     app = Flask(__name__)
-    app.config["SECRET_KEY"] = '3a+*q6&rjy0#6^57w#6j&+j0lol_$nh*=4$^d*(@2m%r@lnis%'
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog.db"
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    cfg_name = os.environ.get('DevConfig')
+    app.config.from_object(f'blog.configs.DevConfig')
     db.init_app(app)
     register_blueprints(app)
     login_manager.init_app(app)
