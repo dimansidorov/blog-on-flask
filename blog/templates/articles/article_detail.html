@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if article %}
+        <div class="container">
+            <h1 class="info-text"> {{ article.title }}</h1>
+            <h4 class="info-text">Описание</h4>
+            <p class="info-text">{{ article.body }}</p>
+        </div>
+    {% else %}
+        <h1 class="info-text">{{ title }}</h1>
+    {% endif %}
+{% endblock content %}

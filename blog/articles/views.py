@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template
 
+from blog.articles.models import Article
+
 articles = Blueprint(
     'articles',
     __name__,
@@ -7,13 +9,23 @@ articles = Blueprint(
     static_folder='../static'
 )
 
-MENU = {
-    'Статьи': 'articles.articles_list',
-    'Пользователи': 'users.users_list',
-    # 'О сайте': '#'
-}
 
-
-@articles.route('/')
+@articles.route('/', endpoint='list')
 def articles_list():
-    return render_template('articles/articles.html', title='Статьи', menu=MENU)
+    all_articles = Article.query.all()
+    return render_template('articles/articles.html', title='Статьи', articles=all_articles)
+
+
+@articles.route('/<id>', endpoint='detail')
+def articles_detail(id):
+    article = Article.query.filter_by(id=id).one_or_none()
+    if article is None:
+        title = 'Статья не найдена'
+        return render_template('articles/article_detail.html',
+                               title=title)
+
+    else:
+        return render_template('articles/article_detail.html',
+                               title=f'{article.title}',
+                               article=article)
+

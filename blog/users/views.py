@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from werkzeug.exceptions import NotFound
+from blog.users.models import User
 
 users = Blueprint(
     'users',
@@ -9,38 +9,24 @@ users = Blueprint(
     static_folder='../static'
 )
 
-MENU = {
-    'Статьи': 'articles.articles_list',
-    'Пользователи': 'users.users_list',
-    # 'О сайте': '#'
-}
-USERS = {
-    'varlamov': 'Илья Варламов',
-    'urgantcom': 'Иван Ургант',
-    'slavakomissarenko': 'Вячеслав Комиссаренко',
-    'ana_d_armas': 'Ана де Армас'
-}
 
-
-@users.route('/')
+@users.route('/', endpoint='list')
 def users_list():
+    all_users = User.query.all()
     return render_template('users/users.html',
                            title='Пользователи',
-                           menu=MENU,
-                           users=USERS)
+                           users=all_users)
 
 
-@users.route('/<slug>')
+@users.route('/<slug>', endpoint='detail')
 def user_detail(slug):
-    try:
-        user = USERS[slug]
-        return render_template('users/user_detail.html',
-                               title=f'информация о {user}',
-                               user=user,
-                               menu=MENU)
-    except KeyError:
+    user = User.query.filter_by(username=slug).one_or_none()
+    if user is None:
         title = 'Пользователь не найден'
         return render_template('users/user_detail.html',
-                               title=title,
-                               user=title,
-                               menu=MENU)
+                               title=title)
+
+    else:
+        return render_template('users/user_detail.html',
+                               title=f'{user.username}',
+                               user=user)

@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title }}</title>
 
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../static/css/cover.css" rel="stylesheet">
-    <link href="../static/css/styles.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/cover.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
 </head>
 
 <body class="d-flex h-100 text-center text-bg-dark">
@@ -18,12 +18,26 @@
             <div>
                 <h3 class="float-md-start mb-0">Blog</h3>
                 <nav class="nav nav-masthead justify-content-center float-md-end">
-                    {% for item in menu %}
-                        <a class="nav-link fw-bold py-1 px-0 {% if title == item %} active {% endif %}"
-                           aria-current="page" href="{{ url_for(menu[item]) }}">
-                            {{ item }}
+                    <a class="nav-link fw-bold py-1 px-0 {% if title == 'Статьи' %} active {% endif %}"
+                       aria-current="page" href="{{ url_for('articles.list') }}">
+                        Статьи
+                    </a>
+                    <a class="nav-link fw-bold py-1 px-0 {% if title == 'Пользователи' %} active {% endif %}"
+                       aria-current="page" href="{{ url_for('users.list') }}">
+                        Пользователи
+                    </a>
+                    {% if current_user.is_authenticated %}
+                        <a class="nav-link fw-bold py-1 px-0"
+                           aria-current="page" href="{{ url_for('auth_app.logout') }}">
+                            Выйти
                         </a>
-                    {% endfor %}
+
+                    {% else %}
+                        <a class="nav-link fw-bold py-1 px-0 {% if title == item %} active {% endif %}"
+                           aria-current="page" href="{{ url_for('auth_app.login') }}">
+                            Войти
+                        </a>
+                    {% endif %}
                 </nav>
             </div>
         </header>
@@ -40,19 +54,23 @@
             <span class="mb-3 mb-md-0 icon">© 2023 Project by Dmitry Sidorov</span>
             <div id="socials" class="footer">
                 <a class="nav-link icon" href="https://www.linkedin.com/in/dmitrysidorov/">
-                    <img src="https://cdn.icon-icons.com/icons2/2351/PNG/512/logo_linkedin_icon_143191.png" alt="LinkedIn" width="30"
+                    <img src="https://cdn.icon-icons.com/icons2/2351/PNG/512/logo_linkedin_icon_143191.png"
+                         alt="LinkedIn" width="30"
                          height="30"/>
                 </a>
                 <a class="nav-link icon" href="https://t.me/dimansidorov">
-                    <img src="https://cdn.icon-icons.com/icons2/2351/PNG/512/logo_telegram_airplane_air_plane_paper_airplane_icon_143169.png" alt="Telegram" width="30"
+                    <img src="https://cdn.icon-icons.com/icons2/2351/PNG/512/logo_telegram_airplane_air_plane_paper_airplane_icon_143169.png"
+                         alt="Telegram" width="30"
                          height="30"/>
                 </a>
                 <a class="nav-link icon" href="https://www.github.com/dimansidorov/">
-                    <img src="https://cdn.icon-icons.com/icons2/2351/PNG/512/logo_github_icon_143196.png" alt="Github" width="30"
+                    <img src="https://cdn.icon-icons.com/icons2/2351/PNG/512/logo_github_icon_143196.png" alt="Github"
+                         width="30"
                          height="30"/>
                 </a>
                 <a class="nav-link icon" href="https://www.instagram.com/dimansidorov/">
-                    <img src="https://cdn.icon-icons.com/icons2/2351/PNG/512/logo_instagram_icon_143177.png" alt="Instagram" width="30"
+                    <img src="https://cdn.icon-icons.com/icons2/2351/PNG/512/logo_instagram_icon_143177.png"
+                         alt="Instagram" width="30"
                          height="30"/>
                 </a>
             </div>
@@ -60,7 +78,7 @@
     </footer>
 
     {% block js %}
-        <script src="../static/js/bootstrap.bundle.min.js"
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"
                 integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
                 crossorigin="anonymous"></script>
     {% endblock js %}
