@@ -5,6 +5,8 @@ from blog.users.views import users
 from blog.database import db
 import os
 
+from flask_migrate import Migrate
+
 
 def create_app() -> Flask:
     app = Flask(__name__)
@@ -13,6 +15,7 @@ def create_app() -> Flask:
     db.init_app(app)
     register_blueprints(app)
     login_manager.init_app(app)
+    migrate = Migrate(app, db, compare_type=True)
 
     return app
 

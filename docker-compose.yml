@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  pg:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: blog
+  blog:
+    build:
+      dockerfile: dockerfile
+      context: .
+    environment:
+      SQLALCHEMY_DATABASE_URI: postgresql://user:password@pg:5432/blog
+      CONFIG_NAME: DevConfig
+    volumes:
+      - ./blog:/app/blog
+    ports:
+      - 5000:5000
+    depends_on:
+      - pg
