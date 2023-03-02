@@ -10,8 +10,8 @@ from flask_migrate import Migrate
 
 def create_app() -> Flask:
     app = Flask(__name__)
-    cfg_name = os.environ.get('DevConfig')
-    app.config.from_object(f'blog.configs.DevConfig')
+    cfg_name = os.environ.get("CONFIG_NAME") or "DevConfig"
+    app.config.from_object(f'blog.configs.{cfg_name}')
     db.init_app(app)
     register_blueprints(app)
     login_manager.init_app(app)
