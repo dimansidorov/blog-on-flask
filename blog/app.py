@@ -3,6 +3,7 @@ from blog.articles.views import articles
 from blog.auth.views import auth_app, login_manager
 from blog.users.views import users
 from blog.database import db
+from blog.security import flask_bcrypt
 import os
 
 from flask_migrate import Migrate
@@ -15,6 +16,7 @@ def create_app() -> Flask:
     db.init_app(app)
     register_blueprints(app)
     login_manager.init_app(app)
+    flask_bcrypt.init_app(app)
     migrate = Migrate(app, db, compare_type=True)
 
     return app
