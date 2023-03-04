@@ -5,14 +5,6 @@ from blog.users.models import User
 
 app = create_app()
 
-@app.cli.command("init-db")
-def init_db():
-    """
-    Run in your terminal:
-    flask init-db
-    """
-    db.create_all()
-    print("done!")
 
 @app.cli.command("create-admin")
 def create_admin():
