@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-
+from flask_login import current_user
 from blog.articles.models import Article
 
 articles = Blueprint(
@@ -12,6 +12,8 @@ articles = Blueprint(
 
 @articles.route('/', endpoint='list')
 def articles_list():
+    print(current_user)
+
     all_articles = Article.query.all()
     return render_template('articles/articles.html', title='Статьи', articles=all_articles)
 

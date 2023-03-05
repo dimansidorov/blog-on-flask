@@ -13,10 +13,11 @@ def create_app() -> Flask:
     app = Flask(__name__)
     cfg_name = os.environ.get("CONFIG_NAME") or "DevConfig"
     app.config.from_object(f'blog.configs.{cfg_name}')
+    flask_bcrypt.init_app(app)
     db.init_app(app)
     register_blueprints(app)
     login_manager.init_app(app)
-    flask_bcrypt.init_app(app)
+
     migrate = Migrate(app, db, compare_type=True)
 
     return app
