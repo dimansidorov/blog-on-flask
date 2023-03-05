@@ -1,32 +1,27 @@
+import os
+
 from blog.app import create_app, db
+from blog.users.models import User
 
 app = create_app()
 
 
-@app.cli.command("init-db")
-def init_db():
-    """
-    Run in your terminal:
-    flask init-db
-    """
-    db.create_all()
-    print("done!")
-
-
-@app.cli.command("create-users")
-def create_users():
+@app.cli.command("create-admin")
+def create_admin():
     """
     Run in your terminal:
     flask create-users
     > done! created users: <User #1 'admin'> <User #2 'james'>
     """
-    from blog.users.models import User
-    admin = User(username="admin", is_staff=True, email='admin@admin.ad')
-    james = User(username="james", email='james@james.js')
+    username = input('Введите имя пользователя: ')
+    email = input('Введите адрес электронной почты: ')
+    admin = User(username=username, is_staff=True, email=email)
+    admin.password = os.environ.get('ADMIN_PASSWORD') or 'adminpass'
+
     db.session.add(admin)
-    db.session.add(james)
     db.session.commit()
-    print(f"done! created users: {admin}, {james}")
+
+    print(f'Суперпользователь {admin} создан')
 
 
 @app.cli.command("create-articles")

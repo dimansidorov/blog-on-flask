@@ -1,20 +1,27 @@
 {% extends 'base.html' %}
+{% from 'macro/formhelpers.html' import render_field %}
 
 {% block content %}
-    <h1>Авторизация</h1>
-    {% if error %}
-        <div class="alert alert-danger" role="alert">
-            {{ error }}
-        </div>
+    <h2>Авторизация</h2>
+    {% if errors %}
+        {% for error in errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endfor %}
     {% endif %}
-    <form method="post">
-        <label for="input-username">Пользователь</label>
-        <input
-                id="input-username"
-                type="text"
-                name="username"
-                required
-        >
-        <button type="submit" class="btn btn-outline-success m-3">Войти</button>
-    </form>
+    <div class="container">
+        <form method="POST">
+            {% if 'csrf_token' in form %}
+                {{ form.csrf_token }}
+            {% endif %}
+            {% for field in ['username', 'password'] %}
+                {{ render_field(form[field]) }}
+            {% endfor %}
+            <div>
+                {{ form.submit(class="btn btn-outline-success m-3") }}
+            </div>
+
+        </form>
+    </div>
 {% endblock content %}
