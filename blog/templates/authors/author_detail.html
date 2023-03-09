@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user %}
+        <div class="container">
+            <h1 class="info-text"> Информация о пользователе: {{ user.username }}</h1>
+            <h4 class="info-text">ID: {{ user.id }}</h4>
+            <h4 class="info-text">email: {{ user.email }}</h4>
+            <h4 class="info-text">Staff: {{ user.is_staff }}</h4>
+        </div>
+    {% else %}
+        <h1 class="info-text">{{ title }}</h1>
+    {% endif %}
+{% endblock content %}

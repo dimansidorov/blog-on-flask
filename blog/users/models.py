@@ -11,7 +11,8 @@ class User(db.Model, UserMixin):
     _password = db.Column(db.LargeBinary, nullable=False)
     email = db.Column(db.String, unique=True)
     is_staff = db.Column(db.Boolean, nullable=False, default=False)
-    articles = db.relationship('Article', backref='user', lazy=True)
+
+    author = db.relationship('Author', back_populates="user")
 
     @property
     def password(self):

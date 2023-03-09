@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <ul>
+            {% for author in authors %}
+                <li class="info-text">
+                    <a href="{{ url_for('authors.detail', id=author.id) }}">{{ author.user.username }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock content %}

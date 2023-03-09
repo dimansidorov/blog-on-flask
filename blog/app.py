@@ -1,4 +1,6 @@
 from flask import Flask
+
+from blog.authors.views import authors
 from blog.articles.views import articles
 from blog.auth.views import auth_app, login_manager
 from blog.users.views import users
@@ -26,4 +28,5 @@ def create_app() -> Flask:
 def register_blueprints(app: Flask):
     app.register_blueprint(blueprint=articles, name='articles')
     app.register_blueprint(blueprint=users, name='users')
+    app.register_blueprint(blueprint=authors, name='authors')
     app.register_blueprint(blueprint=auth_app, name='auth_app')

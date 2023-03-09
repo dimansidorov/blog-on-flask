@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from flask_login import current_user
+from flask_login import login_required
 from blog.articles.models import Article
 
 articles = Blueprint(
@@ -17,6 +17,7 @@ def articles_list():
 
 
 @articles.route('/<id>', endpoint='detail')
+@login_required
 def articles_detail(id):
     article = Article.query.filter_by(id=id).one_or_none()
     if article is None:
@@ -29,3 +30,8 @@ def articles_detail(id):
                                title=f'{article.title}',
                                article=article)
 
+
+@articles.route('/add_article', methods=['GET', 'POST'], endpoint='add_article')
+@login_required
+def add_article():
+    return 'lalala'

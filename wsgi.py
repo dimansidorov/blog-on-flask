@@ -6,6 +6,16 @@ from blog.users.models import User
 app = create_app()
 
 
+# @app.cli.command("init-db")
+# def init_db():
+#     """
+#     Run in your terminal:
+#     flask init-db
+#     """
+#     db.create_all()
+#     print("done!")
+
+
 @app.cli.command("create-admin")
 def create_admin():
     """
@@ -34,10 +44,10 @@ def create_articles():
     from blog.articles.models import Article
     article_one = Article(title="Тайна Коко",
                           body='12-летний Мигель живёт в мексиканской деревушке в семье сапожников и тайно мечтает стать музыкантом. Когда-то его прапрадед оставил жену, прапрабабку Мигеля, ради мечты, которая теперь не даёт спокойно жить и его праправнуку. С тех пор музыкальная тема в семье стала табу.',
-                          creator_id=1)
+                          author_id=1)
     article_two = Article(title="Криминальное чтиво",
                           body='Двое бандитов Винсент Вега и Джулс Винфилд ведут философские беседы в перерывах между разборками и решением проблем с должниками криминального босса Марселласа Уоллеса.',
-                          creator_id=1)
+                          author_id=1)
     db.session.add(article_one)
     db.session.add(article_two)
     db.session.commit()
