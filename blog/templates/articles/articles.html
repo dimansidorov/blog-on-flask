@@ -2,17 +2,19 @@
 
 {% block content %}
     <div class="container">
-    <a href="{{ url_for('articles.add_article') }}"><button type="button" class="btn btn-secondary info-text">Добавить статью</button></a>
+        <a href="{{ url_for('articles.add_article') }}">
+            <button type="button" class="btn btn-success"> <b> + </b> Добавить статью</button>
+        </a>
 
-        <ul>
-            {% for item in articles%}
-                <li class="info-text">
-                    <h1> {{ item.title }}</h1>
-                    <p> {{ item.body }}</p>
-                    <a href="{{ url_for('articles.detail', id=item.id) }}"><button type="button" class="btn btn-secondary">Подробнее</button></a>
-                </li>
-            {% endfor %}
-        </ul>
+        {% for item in articles %}
+            <div class="info-text mb-3 mt-3">
+                <h1> {{ item.title }}</h1>
+                <p> {{ item.body }}</p>
+                <a href="{{ url_for('articles.detail', id=item.id) }}">
+                    <button type="button" class="btn btn-secondary">Подробнее</button>
+                </a>
+            </div>
+        {% endfor %}
     </div>
 
 {% endblock content %}

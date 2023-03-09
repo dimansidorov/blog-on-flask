@@ -7,3 +7,6 @@ class Author(db.Model):
 
     user = db.relationship('User', back_populates="author")
     article = db.relationship('Article', back_populates='author')
+
+    def __repr__(self):
+        return str(self.id)
