@@ -1,6 +1,13 @@
 body {
-    background-color: #333333 !important;
+    background-color: #0c0f21 !important;
     color: whitesmoke;
+}
+
+.article {
+    border: 1px solid whitesmoke;
+    border-radius: 7px;
+    text-align: center;
+    padding: 15px;
 }
 
 .footer {

@@ -32,7 +32,7 @@ def articles_detail(id):
 
     else:
         return render_template('articles/article_detail.html',
-                               title=article.title,
+                               title=f'Статья о "{article.title}"',
                                article=article)
 
 
