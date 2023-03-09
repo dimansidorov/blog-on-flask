@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="container">
-        <h1 class="">Статьи</h1>
+        <h1 class="text-center">{{ title }}</h1>
 
         {% for item in articles %}
 
@@ -14,8 +14,8 @@
                 </a>
             </div>
         {% endfor %}
-        <a href="{{ url_for('articles.add_article') }}">
-            <button type="button" class="btn btn-success"> <b> + </b> Добавить статью</button>
+        <a class="text-center" href="{{ url_for('articles.add_article') }}">
+            <button type="button" class="btn btn-success "> <b> + </b> Добавить статью</button>
         </a>
     </div>
 
