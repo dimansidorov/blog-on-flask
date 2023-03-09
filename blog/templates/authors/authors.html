@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1> Наши авторы </h1>
+        <ul>
+            {% for author in authors %}
+                <li class="info-text">
+                    <a class="nav-link" href="{{ url_for('authors.detail', id=author.id) }}">{{ author.user.username }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock content %}

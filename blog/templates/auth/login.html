@@ -2,26 +2,32 @@
 {% from 'macro/formhelpers.html' import render_field %}
 
 {% block content %}
-    <h2>Авторизация</h2>
-    {% if errors %}
-        {% for error in errors %}
-            <div class="alert alert-danger" role="alert">
-                {{ error }}
-            </div>
-        {% endfor %}
-    {% endif %}
-    <div class="container">
-        <form method="POST">
-            {% if 'csrf_token' in form %}
-                {{ form.csrf_token }}
-            {% endif %}
-            {% for field in ['username', 'password'] %}
-                {{ render_field(form[field]) }}
-            {% endfor %}
-            <div>
-                {{ form.submit(class="btn btn-outline-success m-3") }}
-            </div>
+    <div class="form-signin w-100 m-auto">
 
-        </form>
+        <h1 class="h3 mb-3 fw-normal">Авторизация</h1>
+        {% if errors %}
+            {% for error in errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="cover-container">
+            <form method="POST">
+                {% if 'csrf_token' in form %}
+                    {{ form.csrf_token }}
+                {% endif %}
+                {% for field in ['username', 'password'] %}
+                    <div class="mt-2">
+                        {{ render_field(form[field]) }}
+                    </div>
+
+                {% endfor %}
+                <div>
+                    {{ form.submit(class="btn btn-outline-success m-3") }}
+                </div>
+
+            </form>
+        </div>
     </div>
 {% endblock content %}

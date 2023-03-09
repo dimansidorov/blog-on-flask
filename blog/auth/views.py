@@ -70,7 +70,7 @@ def login():
     if current_user.is_authenticated:
         redirect('articles.list')
 
-    title = 'Логин'
+    title = 'Авторизация'
     form = LoginForm(request.form)
     if request.method == "POST" and form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).one_or_none()
