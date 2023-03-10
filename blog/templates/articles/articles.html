@@ -10,13 +10,23 @@
                 <h3> {{ item.title }}</h3>
                 <hr>
                 <p> {{ item.body }}</p>
+{#                {% if item.tag %}#}
+{#                    <div class="mb-3">#}
+{#                        <p>Теги: </p>#}
+{#                        {% for tag in item.tag %}#}
+{#                            <button class="btn btn-info btn-sm">{{ tag.name }}</button>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+{##}
+{#                {% endif %}#}
                 <a href="{{ url_for('articles.detail', id=item.id) }}">
+
                     <button type="button" class="btn btn-secondary">Подробнее</button>
                 </a>
             </div>
         {% endfor %}
         <a class="text-center" href="{{ url_for('articles.add_article') }}">
-            <button type="button" class="btn btn-success "> <b> + </b> Добавить статью</button>
+            <button type="button" class="btn btn-success "><b> + </b> Добавить статью</button>
         </a>
     </div>
 

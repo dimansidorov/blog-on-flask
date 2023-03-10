@@ -1,11 +1,13 @@
 from flask import Blueprint, render_template, redirect, request, current_app, url_for
 from flask_login import login_required, current_user
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import joinedload
+
 from blog.database import db
 
 from blog.articles.forms import CreateArticleForm
 from blog.authors.models import Author
-from blog.articles.models import Article
+from blog.articles.models import Article, Tag
 
 articles = Blueprint(
     'articles',
@@ -24,16 +26,18 @@ def articles_list():
 @articles.route('/<id>', endpoint='detail')
 @login_required
 def articles_detail(id):
-    article = Article.query.filter_by(id=id).one_or_none()
-    if article is None:
+    _article = Article.query.filter_by(id=id).options(
+        joinedload(Article.tag)
+    ).one_or_none()
+    if _article is None:
         title = 'Статья не найдена'
         return render_template('articles/article_detail.html',
                                title=title)
 
     else:
         return render_template('articles/article_detail.html',
-                               title=f'Статья о "{article.title}"',
-                               article=article)
+                               title=f'Статья о "{_article.title}"',
+                               article=_article)
 
 
 @articles.route('/add_article', methods=['GET', 'POST'], endpoint='add_article')
@@ -42,8 +46,10 @@ def add_article():
     title = 'Добавить статью'
     error = None
     form = CreateArticleForm(request.form)
+    form.tags.choices = [(tag.id, tag.name) for tag in Tag.query.order_by("name")]
 
     if request.method == "POST" and form.validate_on_submit():
+
         if current_user.author:
             author_id = int(str(current_user.author)[1:-1])
         else:
@@ -53,6 +59,10 @@ def add_article():
             author_id = int(str(current_user.author)[1:-1])
 
         article = Article(title=form.title.data, body=form.body.data, author_id=author_id)
+        if form.tags.data:
+            selected_tags = Tag.query.filter(Tag.id.in_(form.tags.data))
+            for tag in selected_tags:
+                article.tag.append(tag)
         db.session.add(article)
 
         try:

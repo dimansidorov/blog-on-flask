@@ -40,3 +40,6 @@ class Tag(db.Model):
         secondary=article_tag_association_table,
         back_populates='tag'
     )
+
+    def __repr__(self):
+        return str(self.id)
