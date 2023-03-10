@@ -1,11 +1,12 @@
 body {
-    background-color: #0c0f21 !important;
+    background-color: #04051a !important;
     color: whitesmoke;
 }
 
+
 .article {
-    border: 1px solid whitesmoke;
-    border-radius: 7px;
+    border: 2px solid whitesmoke;
+    border-radius: 10px;
     text-align: center;
     padding: 20px;
 }

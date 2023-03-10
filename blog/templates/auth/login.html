@@ -2,7 +2,7 @@
 {% from 'macro/formhelpers.html' import render_field %}
 
 {% block content %}
-    <div class="form-signin w-100 m-auto">
+    <div class="form-signin w-100 m-auto article">
 
         <h1 class="h3 mb-3 fw-normal">Авторизация</h1>
         {% if errors %}
@@ -12,7 +12,7 @@
                 </div>
             {% endfor %}
         {% endif %}
-        <div class="cover-container">
+        <div>
             <form method="POST">
                 {% if 'csrf_token' in form %}
                     {{ form.csrf_token }}
