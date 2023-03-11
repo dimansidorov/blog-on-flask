@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container">
+    <div class="container mb-2">
         <h1 class="text-center">{{ title }}</h1>
 
         {% for item in articles %}
@@ -21,11 +21,11 @@
 {#                {% endif %}#}
                 <a href="{{ url_for('articles.detail', id=item.id) }}">
 
-                    <button type="button" class="btn btn-secondary">Подробнее</button>
+                    <button type="button" class="btn btn-outline-warning">Подробнее</button>
                 </a>
             </div>
         {% endfor %}
-        <a class="text-center" href="{{ url_for('articles.add_article') }}">
+        <a class="" href="{{ url_for('articles.add_article') }}">
             <button type="button" class="btn btn-success "><b> + </b> Добавить статью</button>
         </a>
     </div>

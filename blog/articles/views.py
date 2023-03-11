@@ -59,6 +59,7 @@ def add_article():
             author_id = int(str(current_user.author)[1:-1])
 
         article = Article(title=form.title.data, body=form.body.data, author_id=author_id)
+        # print(form.tags)
         if form.tags.data:
             selected_tags = Tag.query.filter(Tag.id.in_(form.tags.data))
             for tag in selected_tags:

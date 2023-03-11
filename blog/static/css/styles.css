@@ -1,20 +1,29 @@
 body {
-    background-color: #04051a !important;
-    color: whitesmoke;
+    background-color: #1a1e21;
+    color: whitesmoke !important;
+    background-image: url("../l.png");
+    opacity: 0.9;
 }
 
+main {
+
+}
 
 .article {
-    border: 2px solid whitesmoke;
+    background-color: #19181A;
+    border: 2px solid #1a1e21;
     border-radius: 10px;
     text-align: center;
     padding: 20px;
+    opacity: 0.9;
+    box-shadow: 10px 5px 5px #1a1e21;
 }
 
 .footer {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    opacity: 0.9;
 }
 
 .main-hight {
@@ -103,3 +112,19 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
+/* form */
+.modal-sheet .modal-dialog {
+  width: 380px;
+  transition: bottom .75s ease-in-out;
+}
+.modal-sheet .modal-footer {
+  padding-bottom: 2rem;
+}
+
+.modal-alert .modal-dialog {
+  width: 380px;
+}
+
+.modal-tour .modal-dialog {
+  width: 380px;
+}
