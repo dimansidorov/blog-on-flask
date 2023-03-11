@@ -1,20 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container mb-5 mt-2">
-        <h1 class="">Статьи</h1>
+    <div class="container">
+        <h1 class="text-center">{{ title }}</h1>
 
         {% for item in articles %}
-            <div class="info-text mb-3 mt-3">
+
+            <div class="info-text mb-3 mt-3 article">
                 <h3> {{ item.title }}</h3>
+                <hr>
                 <p> {{ item.body }}</p>
+{#                {% if item.tag %}#}
+{#                    <div class="mb-3">#}
+{#                        <p>Теги: </p>#}
+{#                        {% for tag in item.tag %}#}
+{#                            <button class="btn btn-info btn-sm">{{ tag.name }}</button>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+{##}
+{#                {% endif %}#}
                 <a href="{{ url_for('articles.detail', id=item.id) }}">
+
                     <button type="button" class="btn btn-secondary">Подробнее</button>
                 </a>
             </div>
         {% endfor %}
-        <a href="{{ url_for('articles.add_article') }}">
-            <button type="button" class="btn btn-success"> <b> + </b> Добавить статью</button>
+        <a class="text-center" href="{{ url_for('articles.add_article') }}">
+            <button type="button" class="btn btn-success "><b> + </b> Добавить статью</button>
         </a>
     </div>
 

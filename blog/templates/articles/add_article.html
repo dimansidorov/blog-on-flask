@@ -3,7 +3,7 @@
 
 {% block content %}
     <div class="cover-container text-center">
-        <h2>Добавление статьи</h2>
+        <h2> Добавление статьи </h2>
         {% if errors %}
             {% for error in errors %}
                 <div class="alert alert-danger" role="alert">
@@ -15,7 +15,7 @@
             {% if 'csrf_token' in form %}
                 {{ form.csrf_token }}
             {% endif %}
-            {% for field in ['title', 'body'] %}
+            {% for field in ['title', 'body', 'tags'] %}
                 {{ render_field(form[field]) }}
             {% endfor %}
             <div>

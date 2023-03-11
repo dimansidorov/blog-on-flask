@@ -1,7 +1,6 @@
 import os
 
 from blog.app import create_app, db
-from blog.users.models import User
 
 app = create_app()
 
@@ -23,6 +22,7 @@ def create_admin():
     flask create-users
     > done! created users: <User #1 'admin'> <User #2 'james'>
     """
+    from blog.users.models import User
     username = input('Введите имя пользователя: ')
     email = input('Введите адрес электронной почты: ')
     admin = User(username=username, is_staff=True, email=email)
@@ -52,6 +52,27 @@ def create_articles():
     db.session.add(article_two)
     db.session.commit()
     print(f"done! created users: {article_one}, {article_two}")
+
+
+@app.cli.command("create-tags")
+def create_tags():
+    """
+    Run in your terminal:
+    ➜ flask create-tags
+    """
+    from blog.articles.models import Tag
+    for item in ['мультфильм',
+                 'семейное',
+                 'боевик',
+                 'фантастика',
+                 'фэнтези',
+                 'ужасы',
+                 'триллер',
+                 'сериал']:
+        tag = Tag(name=item)
+        db.session.add(tag)
+    db.session.commit()
+    print(f"done! tags added!")
 
 
 if __name__ == '__main__':

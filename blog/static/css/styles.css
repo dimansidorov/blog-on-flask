@@ -1,6 +1,14 @@
 body {
-    background-color: #333333 !important;
+    background-color: #04051a !important;
     color: whitesmoke;
+}
+
+
+.article {
+    border: 2px solid whitesmoke;
+    border-radius: 10px;
+    text-align: center;
+    padding: 20px;
 }
 
 .footer {
@@ -94,3 +102,4 @@ body {
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
 }
+

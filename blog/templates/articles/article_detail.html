@@ -2,19 +2,25 @@
 
 {% block content %}
     {% if article %}
-            <br>
-
         <a class="mb-5 mt-5" href="{{ url_for('articles.list') }}">
-            <button type="button" class="btn btn-danger"> <b> < </b> Вернуться к статьям </button>
+            <button type="button" class="btn btn-danger"><b> < </b> Вернуться к статьям</button>
         </a>
         <div class="container">
             <h1 class="info-text mt-3 mb-2">{{ article.title }}</h1>
-            <br>
-            <h4 class="info-text mt-2 mb-2">Описание</h4>
-            <br>
-
-            <p class="info-text" >{{ article.body }}</p>
+            <hr>
+            <p class="info-text">{{ article.body }}</p>
+            <p> Автор статьи: <a class="" href="{{ url_for('authors.detail', id=article.author.id) }}">
+                {{ article.author.user.username }}
+            </a></p>
         </div>
+        {% if article.tag %}
+            <div class="container ">
+                <p>Теги: </p>
+                {% for tag in article.tag %}
+                    <button class="btn btn-info btn-sm">{{ tag.name }}</button>
+                {% endfor %}
+            </div>
+        {% endif %}
     {% else %}
         <h1 class="info-text">{{ title }}</h1>
     {% endif %}
