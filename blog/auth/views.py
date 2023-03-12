@@ -29,7 +29,7 @@ def unauthorized():
 @auth_app.route('/register/', methods=["GET", "POST"], endpoint="register")
 def register():
     if current_user.is_authenticated:
-        redirect('articles.list')
+        return redirect(url_for('articles.list'))
 
     title = 'Регистрация'
     error = None
@@ -68,7 +68,7 @@ def register():
 @auth_app.route("/login/", methods=["GET", "POST"], endpoint="login")
 def login():
     if current_user.is_authenticated:
-        redirect('articles.list')
+        return redirect(url_for('articles.list'))
 
     errors = None
     title = 'Авторизация'

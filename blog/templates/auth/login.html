@@ -4,7 +4,7 @@
 {% block content %}
     {#    <h1 class="h3 mb-1 fw-normal text-center">Авторизация</h1>#}
     <div class="form-signin w-100 m-auto article modal-body ">
-        <h1 class="h3 mb-4 fw-normal text-center">Авторизация</h1>
+        <h1 class="h3 fw-normal text-center">Авторизация</h1>
 
         {% if errors %}
             {#            {% for error in errors %}#}
@@ -28,7 +28,7 @@
                 <div>
 
                     {{ form.submit(class="btn btn-outline-success m-2") }}
-                    <div class="form-signin w-100 m-auto mt-2">
+                    <div class="form-signin w-100 m-auto">
                         <p class=""> Новый пользователь? <a class="" href="{{ url_for('auth_app.register') }}">Зарегистрируйтесь. </a>
                         </p>
                     </div>

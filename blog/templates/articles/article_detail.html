@@ -7,7 +7,7 @@
                 <button type="button" class="btn btn-danger"><b> < </b> Вернуться к статьям</button>
             </a>
             <div class="mt-3 article">
-                <h1 class="info-text mt-3 mb-2">{{ article.title }}</h1>
+                <h1 class="text-center mb-4">{{ article.title }}</h1>
                 <hr>
                 <p class="info-text">{{ article.body }}</p>
                 <p class="text-start"> Автор статьи: <a class="link-light" href="{{ url_for('authors.detail', id=article.author.id) }}">
