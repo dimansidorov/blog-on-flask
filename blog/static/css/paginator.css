@@ -19,19 +19,17 @@
 .my-previous-page,
 .my-next-page {
     background-color: rgba(80, 80, 80, 0.4);
-
-    /*border: 2px solid rgba(25, 24, 25, 1);*/
     border-radius: 10px;
     width: 3em;
     cursor: pointer;
     box-shadow: 10px 5px 5px rgba(25, 24, 25, 1);
 }
 
-.previous-page:hover {
+.my-previous-page:hover {
     transform: translateX(-5px);
 }
 
-.next-page:hover {
+.my-next-page:hover {
     transform: translateX(5px);
 }
 

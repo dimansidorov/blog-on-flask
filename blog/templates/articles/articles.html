@@ -35,26 +35,27 @@
     {% block pagination %}
 
     <div class="my-pagination mt-2">
-        <li class="page-item my-previous-page {% if not articles.has_prev %} disable {% endif %}">
+        {% if articles.has_prev %}
+        <li class="page-item my-previous-page">
             <a {% if articles.has_prev %} href="./?page={{ articles.prev_num }}" {% endif %} class="page-link">
                 <span >&laquo;</span>
             </a>
         </li>
-
+        {% endif %}
         {% for page in articles.iter_pages() %}
 
-            <li class="dots{% if page == articles.page %} active current-page {% endif %}">
+            <li class="dots current-page {% if page == articles.page %} active{% endif %}">
                 <a class="page-link" href="./?page={{ page }}">{{ page }}
                 </a>
             </li>
         {% endfor %}
-
-        <li class="page-item my-next-page {% if not articles.has_next %} disable {% endif %}">
+        {% if articles.has_next %}
+        <li class="page-item my-next-page">
             <a class="page-link"
                {% if articles.has_next %} href="./?page={{ articles.next_num }}" {% endif %}><span>&raquo;</span>
             </a>
         </li>
-
+        {% endif %}
     </div>
 
 
