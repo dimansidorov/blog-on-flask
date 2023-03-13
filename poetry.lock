@@ -638,6 +638,21 @@ Flask = ">=0.9"
 Flask-SQLAlchemy = ">=1.0"
 
 [[package]]
+name = "flask-paginate"
+version = "2022.1.8"
+description = "Simple paginate support for flask"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "flask-paginate-2022.1.8.tar.gz", hash = "sha256:a32996ec07ca004c45b768b0d50829728ab8f3986c0650ef538e42852c7aeba2"},
+    {file = "flask_paginate-2022.1.8-py2.py3-none-any.whl", hash = "sha256:b3fc28752b8e0546999f3d4b0678351ae3230ea4424353c59db9f0d479fd9049"},
+]
+
+[package.dependencies]
+Flask = "*"
+
+[[package]]
 name = "flask-sqlalchemy"
 version = "3.0.3"
 description = "Add SQLAlchemy support to your Flask application."
@@ -1829,4 +1844,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "ef50084940c510c236661c83ff2715d2b638046b6c66f1870b889cbfe5a161f8"
+content-hash = "2be91c54784947168946feac6a7b9ae380bbb83b90f658ae324421b0fcbd324a"

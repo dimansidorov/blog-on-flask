@@ -12,7 +12,7 @@ body {
     flex-direction: column;
     background-color: rgba(25, 24, 25, 1);
     color: whitesmoke !important;
-    background-image: url("../l.png");
+    background-image: url("../l1.png");
 }
 
 .wrapper {
@@ -24,7 +24,7 @@ footer {
 }
 
 .article {
-    background-color: rgba(80, 80, 80, 0.4);
+    background-color: rgba(80, 80, 80, 0.5);
     border: 1px solid rgba(25, 24, 25, 1);
     border-radius: 10px;
     text-align: center;
