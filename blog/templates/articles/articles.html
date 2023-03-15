@@ -22,16 +22,16 @@
             {#                    </div>#}
             {##}
             {#                {% endif %}#}
-            <a href="{{ url_for('articles.detail', id=item.id) }}">
-
-                <button type="button" class="btn btn-outline-warning">Подробнее</button>
+            <a href="{{ url_for('articles.detail', id=item.id) }}" class="btn my-detail-button">
+                Подробнее
             </a>
         </div>
     {% endfor %}
-    <a class="" href="{{ url_for('articles.add_article') }}">
-        <button type="button" class="btn btn-success "><b> + </b> Добавить статью</button>
-    </a>
-
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('articles.add_article') }}" class="btn my-success-button">
+            <b> + </b> Добавить статью
+        </a>
+    {% endif %}
     {% block pagination %}
 
     <div class="my-pagination mt-2">

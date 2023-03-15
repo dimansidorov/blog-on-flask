@@ -19,7 +19,6 @@ class Article(db.Model):
     body = db.Column(db.Text, nullable=False)
     create_at = db.Column(db.DateTime, default=datetime.datetime.utcnow(), server_default=func.now())
     update_at = db.Column(db.DateTime, default=datetime.datetime.utcnow(), onupdate=datetime.datetime.utcnow())
-
     author = db.relationship('Author', back_populates='article')
     tag = db.relationship(
         'Tag',
