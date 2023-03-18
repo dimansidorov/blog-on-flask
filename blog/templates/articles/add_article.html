@@ -13,13 +13,16 @@
                     </div>
                 {% endfor %}
             {% endif %}
-            <form method="POST" class="mx-3">
+            <form method="POST" class="mx-3" enctype=multipart/form-data>
                 {% if 'csrf_token' in form %}
                     {{ form.csrf_token }}
                 {% endif %}
                 {% for field in ['title', 'body', 'tags'] %}
                     {{ render_field(form[field]) }}
                 {% endfor %}
+                <div class="mb-3">
+                    {{ form.cover(class="form-label") }}
+                </div>
                 <div>
                     {{ form.submit(class="btn my-success-button m-3") }}
                 </div>

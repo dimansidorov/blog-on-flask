@@ -1,8 +1,4 @@
-import os
-
-from blog.app import create_app, db
-
-app = create_app()
+from blog.app import app
 
 
 if __name__ == '__main__':

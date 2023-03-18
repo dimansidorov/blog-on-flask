@@ -1,14 +1,19 @@
+import os
+
 from flask import Blueprint, render_template, redirect, request, current_app, url_for
 from flask_login import login_required, current_user
-from flask_paginate import Pagination, get_page_parameter, get_page_args
+from flask_uploads import UploadSet, IMAGES
+
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
+from werkzeug.utils import secure_filename
 
 from blog.database import db
 
 from blog.articles.forms import CreateArticleForm
 from blog.authors.models import Author
 from blog.articles.models import Article, Tag
+import blog.app
 
 articles = Blueprint(
     'articles',
@@ -16,10 +21,6 @@ articles = Blueprint(
     url_prefix='/articles',
     static_folder='../static'
 )
-
-
-def paginate(item, offset=0, per_page=3):
-    return item[offset:offset + per_page]
 
 
 @articles.route('/', endpoint='list')
@@ -32,7 +33,6 @@ def articles_list():
         page = 1
 
     all_articles = Article.query.paginate(page=page, per_page=2)
-
     return render_template(
         'articles/articles.html',
         title='Статьи',
@@ -64,9 +64,7 @@ def add_article():
     error = None
     form = CreateArticleForm(request.form)
     form.tags.choices = [(tag.id, tag.name) for tag in Tag.query.order_by("name")]
-
     if request.method == "POST" and form.validate_on_submit():
-
         if current_user.author:
             author_id = int(str(current_user.author)[1:-1])
         else:
@@ -75,8 +73,13 @@ def add_article():
             db.session.commit()
             author_id = int(str(current_user.author)[1:-1])
 
-        article = Article(title=form.title.data, body=form.body.data, author_id=author_id)
-        # print(form.tags)
+        file = request.files['cover']
+        if file.filename == '':
+            cover = 'default.jpg'
+        else:
+            cover = blog.app.images.save(request.files['cover'])
+
+        article = Article(title=form.title.data, body=form.body.data, author_id=author_id, cover=cover)
         if form.tags.data:
             selected_tags = Tag.query.filter(Tag.id.in_(form.tags.data))
             for tag in selected_tags:
