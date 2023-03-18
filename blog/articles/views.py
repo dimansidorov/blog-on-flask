@@ -1,12 +1,9 @@
-import os
-
+import werkzeug
 from flask import Blueprint, render_template, redirect, request, current_app, url_for
 from flask_login import login_required, current_user
-from flask_uploads import UploadSet, IMAGES
 
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
-from werkzeug.utils import secure_filename
 
 from blog.database import db
 
@@ -25,19 +22,24 @@ articles = Blueprint(
 
 @articles.route('/', endpoint='list')
 def articles_list():
-    page = request.args.get('page')
-
-    if page and page.isdigit():
-        page = int(page)
-    else:
-        page = 1
-
-    all_articles = Article.query.paginate(page=page, per_page=2)
-    return render_template(
-        'articles/articles.html',
-        title='Статьи',
-        articles=all_articles,
-    )
+    error = None
+    per_page = 3
+    try:
+        page = request.args.get('page', type=int)
+        all_articles = Article.query.paginate(page=page, per_page=per_page)
+    except werkzeug.exceptions.NotFound:
+        all_articles = Article.query.paginate(page=1, per_page=per_page)
+        error = 'Такой страницы не существует'
+    # except Exception as err:
+    #     error = type(err)
+    #     all_articles = Article.query.paginate(page=1, per_page=2)
+    finally:
+        return render_template(
+            'articles/articles.html',
+            title='Статьи',
+            articles=all_articles,
+            error=error
+        )
 
 
 @articles.route('/<id>', endpoint='detail')
