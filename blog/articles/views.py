@@ -21,7 +21,7 @@ articles = Blueprint(
 
 
 @articles.route('/', endpoint='list')
-def articles_list():
+def article_list():
     error = None
     per_page = 3
     try:
@@ -44,7 +44,7 @@ def articles_list():
 
 @articles.route('/<id>', endpoint='detail')
 @login_required
-def articles_detail(id):
+def article_detail(id):
     _article = Article.query.filter_by(id=id).options(
         joinedload(Article.tag)
     ).one_or_none()
@@ -77,10 +77,10 @@ def add_article():
 
         file = request.files['cover']
         if file.filename == '':
-            cover = 'default.jpg'
+            cover = '/uploads/image/default.jpg'
         else:
             cover = blog.app.images.save(request.files['cover'])
-
+            cover = '/uploads/image' + cover
         article = Article(title=form.title.data, body=form.body.data, author_id=author_id, cover=cover)
         if form.tags.data:
             selected_tags = Tag.query.filter(Tag.id.in_(form.tags.data))

@@ -25,7 +25,7 @@
                     </a>
                 </div>
                 <div class="col-auto d-none d-md-block m-auto">
-                    <img class="bd-placeholder-img img-shadow" src="../../static/uploads/image/{{ item.cover }}"
+                    <img class="bd-placeholder-img img-shadow" src="{{ url_for('static', filename=item.cover) }}"
                          width="200" height="250">
                 </div>
 

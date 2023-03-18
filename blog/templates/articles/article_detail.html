@@ -8,7 +8,7 @@
         {% if article %}
             <div class="mt-3 row article">
                 <div class="col-auto d-none d-md-block m-auto">
-                    <img class="bd-placeholder-img img-shadow" src="../../static/uploads/image/{{ article.cover }}"
+                    <img class="bd-placeholder-img img-shadow" src="{{ url_for('static', filename=article.cover) }}"
                          width="300" height="400">
                 </div>
 

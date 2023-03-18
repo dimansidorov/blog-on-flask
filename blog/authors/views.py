@@ -14,7 +14,7 @@ authors = Blueprint(
 
 @authors.route('/', endpoint='list')
 @login_required
-def authors_list():
+def author_list():
     all_authors = Author.query.all()
     return render_template('authors/authors.html',
                            title='Авторы',
