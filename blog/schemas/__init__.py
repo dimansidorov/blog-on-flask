@@ -1,4 +1,4 @@
-from schemas.tag import TagSchema
+from blog.schemas.tag import TagSchema
 
 __all__ = [
     'TagSchema'

@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from flask_uploads import configure_uploads, UploadSet, IMAGES
 
+from blog.api import init_api
 from blog.admin import admin
 from blog.authors.views import authors
 from blog.articles.views import articles
@@ -40,6 +41,7 @@ def register_commands(app: Flask):
 
 
 app = Flask(__name__)
+api = init_api(app)
 cfg_name = os.environ.get("CONFIG_NAME") or "DevConfig"
 app.config.from_object(f'blog.configs.{cfg_name}')
 app.config['UPLOADED_IMAGES_DEST'] = UPLOAD_FOLDER
