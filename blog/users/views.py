@@ -14,8 +14,7 @@ users = Blueprint(
 
 @users.route('/', endpoint='list')
 @login_required
-
-def users_list():
+def user_list():
     if current_user.is_staff:
         all_users = User.query.all()
         return render_template('users/users.html',
@@ -24,13 +23,11 @@ def users_list():
     return redirect(url_for('articles.list'))
 
 
-
-
-@users.route('/<slug>', endpoint='detail')
+@users.route('/<id>', endpoint='detail')
 @login_required
-def user_detail(slug):
+def user_detail(id):
     if current_user.is_staff:
-        user = User.query.filter_by(username=slug).one_or_none()
+        user = User.query.filter_by(id=id).one_or_none()
         if user is None:
             title = 'Пользователь не найден'
             return render_template('users/user_detail.html',

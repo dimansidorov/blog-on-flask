@@ -1,13 +1,7 @@
 {% macro render_field(field) %}
-    <div class="form-floating mb-3 text-muted">
-        {#        {% if field.name == 'tags' %}#}
-        {#            {{ field(id="floatingInput", class="form-select" + (" is-invalid" if field.errors else "")) | safe }}#}
-        {#            {{ field.label(for='floatingInput', class="") }}#}
-        {#        {% else %}#}
+    <div class="form-floating mb-3 text-muted form-group">
         {{ field(id="floatingInput", class="form-control rounded-2 " + (" is-invalid" if field.errors else ""))|safe }}
         {{ field.label(for='floatingInput', class="") }}
-
-        {#        {% endif %}#}
         {% if field.errors %}
             {% for error in field.errors %}
                 <div class="invalid-feedback">
@@ -15,6 +9,5 @@
                 </div>
             {% endfor %}
         {% endif %}
-        {#        </div>#}
     </div>
 {% endmacro %}

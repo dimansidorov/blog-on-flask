@@ -20,12 +20,12 @@
                     {{ render_field(form[field]) }}
                 {% endfor %}
                 <div>
-                    {{ form.submit(class="btn btn-success ") }}
+                    {{ form.submit(class="btn my-success-button ") }}
                 </div>
 
             </form>
             <div class="form-signin w-100 m-auto">
-                <p class="">У вас уже есть профиль? <a class="link-warning" href="{{ url_for('auth_app.login') }}">Авторизуйтесь</a>
+                <p class="">У вас уже есть профиль? <a class="my-link" href="{{ url_for('auth_app.login') }}">Авторизуйтесь.</a>
                 </p>
             </div>
         </div>

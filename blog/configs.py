@@ -14,6 +14,10 @@ class BaseConfig(object):
     WTF_CSRF_ENABLED = True
     FLASK_ADMIN_SWATCH = 'cerulean'
 
+    OPENAPI_URL_PREFIX = '/api/swagger'
+    OPENAPI_SWAGGER_UI_PATH = '/'
+    OPENAPI_SWAGGER_UI_VERSION = '4.18.1'
+
 
 class DevConfig(BaseConfig):
     DEBUG = True

@@ -2,26 +2,36 @@
 
 {% block content %}
     <div class="container">
+        <a class="btn my-back-button mt-1 mb-1" href="{{ url_for('articles.list') }}">
+            <b> < </b> Вернуться к статьям
+        </a>
         {% if article %}
-            <a class="mb-5 mt-5" href="{{ url_for('articles.list') }}">
-                <button type="button" class="btn btn-danger"><b> < </b> Вернуться к статьям</button>
-            </a>
-            <div class="mt-3 article">
-                <h1 class="text-center mb-4">{{ article.title }}</h1>
-                <hr>
-                <p class="info-text">{{ article.body }}</p>
-                <p class="text-start"> Автор статьи: <a class="link-light" href="{{ url_for('authors.detail', id=article.author.id) }}">
-                    {{ article.author.user.username }}
-                </a></p>
-                <p class="text-start"> Последнее обновление: {{ article.show_date(article.update_at) }}</p>
-                {% if article.tag %}
-                <div class="row">
-                    <p class="text-start col-1">Теги: </p>
-                    {% for tag in article.tag %}
-                        <button class="btn btn-light btn-sm col-sm-2 g-2 m-lg-1">{{ tag.name }}</button>
-                    {% endfor %}
+            <div class="mt-3 row article">
+                <div class="col-auto d-none d-md-block m-auto">
+                    <img class="bd-placeholder-img img-shadow" src="{{ url_for('static', filename=article.cover) }}"
+                         width="300" height="400">
                 </div>
-            {% endif %}
+
+                <div class="col p-4 d-flex flex-column position-static">
+                    <h1 class="text-start mb-4">{{ article.title }}</h1>
+                    <hr>
+                    <p class="info-text">{{ article.body }}</p>
+                    <p class="text-start"> Автор статьи: <a class="my-link"
+                                                            href="{{ url_for('authors.detail', id=article.author.id) }}">
+                        {{ article.author.user.username }}
+                    </a></p>
+                    <p class="text-start"> Последнее обновление: {{ article.show_date(article.update_at) }}</p>
+                    {% if article.tag %}
+                        <div class="row">
+                            <p class="text-start col-1">Теги: </p>
+                            {{ article.tag | join(' | ') }}
+
+
+                        </div>
+                    {% endif %}
+                </div>
+
+
             </div>
 
         {% else %}

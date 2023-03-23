@@ -12,9 +12,8 @@
                     <h6 class="text-start">Фамилия: {{ author.user.last_name }}</h6>
                     <h6 class="text-start">Колличество статей: {{ author.article | length }}</h6>
 
-                    <a class="mb-1" href="{{ url_for('authors.detail', id=author.id) }}">
-
-                        <button type="button" class="btn btn-outline-warning mt-2">Подробнее</button>
+                    <a class="btn my-detail-button mt-2" href="{{ url_for('authors.detail', id=author.id) }}" >
+                        Подробнее
                     </a>
                     </div>
 

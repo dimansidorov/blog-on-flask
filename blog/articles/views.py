@@ -1,6 +1,7 @@
+import werkzeug
 from flask import Blueprint, render_template, redirect, request, current_app, url_for
 from flask_login import login_required, current_user
-from flask_paginate import Pagination, get_page_parameter, get_page_args
+
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 
@@ -9,6 +10,7 @@ from blog.database import db
 from blog.articles.forms import CreateArticleForm
 from blog.authors.models import Author
 from blog.articles.models import Article, Tag
+import blog.app
 
 articles = Blueprint(
     'articles',
@@ -18,31 +20,31 @@ articles = Blueprint(
 )
 
 
-def paginate(item, offset=0, per_page=3):
-    return item[offset:offset + per_page]
-
-
 @articles.route('/', endpoint='list')
-def articles_list():
-    page = request.args.get('page')
-
-    if page and page.isdigit():
-        page = int(page)
-    else:
-        page = 1
-
-    all_articles = Article.query.paginate(page=page, per_page=2)
-
-    return render_template(
-        'articles/articles.html',
-        title='Статьи',
-        articles=all_articles,
-    )
+def article_list():
+    error = None
+    per_page = 3
+    try:
+        page = request.args.get('page', type=int)
+        all_articles = Article.query.paginate(page=page, per_page=per_page)
+    except werkzeug.exceptions.NotFound:
+        all_articles = Article.query.paginate(page=1, per_page=per_page)
+        error = 'Такой страницы не существует'
+    # except Exception as err:
+    #     error = type(err)
+    #     all_articles = Article.query.paginate(page=1, per_page=2)
+    finally:
+        return render_template(
+            'articles/articles.html',
+            title='Статьи',
+            articles=all_articles,
+            error=error
+        )
 
 
 @articles.route('/<id>', endpoint='detail')
 @login_required
-def articles_detail(id):
+def article_detail(id):
     _article = Article.query.filter_by(id=id).options(
         joinedload(Article.tag)
     ).one_or_none()
@@ -64,9 +66,7 @@ def add_article():
     error = None
     form = CreateArticleForm(request.form)
     form.tags.choices = [(tag.id, tag.name) for tag in Tag.query.order_by("name")]
-
     if request.method == "POST" and form.validate_on_submit():
-
         if current_user.author:
             author_id = int(str(current_user.author)[1:-1])
         else:
@@ -75,8 +75,13 @@ def add_article():
             db.session.commit()
             author_id = int(str(current_user.author)[1:-1])
 
-        article = Article(title=form.title.data, body=form.body.data, author_id=author_id)
-        # print(form.tags)
+        file = request.files['cover']
+        if file.filename == '':
+            cover = '/uploads/image/default.jpg'
+        else:
+            cover = blog.app.images.save(request.files['cover'])
+            cover = '/uploads/image' + cover
+        article = Article(title=form.title.data, body=form.body.data, author_id=author_id, cover=cover)
         if form.tags.data:
             selected_tags = Tag.query.filter(Tag.id.in_(form.tags.data))
             for tag in selected_tags:

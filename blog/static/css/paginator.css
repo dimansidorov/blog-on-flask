@@ -10,7 +10,7 @@
 }
 
 .my-pagination li a {
-    color: whitesmoke;
+    /*color: whitesmoke;*/
     text-decoration: none;
     font-size: 1em;
     line-height: 2.6em;
@@ -18,7 +18,7 @@
 
 .my-previous-page,
 .my-next-page {
-    background-color: rgba(80, 80, 80, 0.4);
+    background-color: rgba(77, 52, 94, 0.5);
     border-radius: 10px;
     width: 3em;
     cursor: pointer;
@@ -35,7 +35,7 @@
 
 .current-page,
 .dots {
-    background-color: rgba(80, 80, 80, 0.5);
+    background-color: rgba(77, 52, 94, 0.5);
     width: 40px;
     border-radius: 8px;
     cursor: pointer;
@@ -47,7 +47,7 @@
 }
 
 .my-pagination li.active {
-    background: rgba(25, 24, 25, 1);
+    background: rgba(213, 94, 100, 1);
 }
 
 .my-pagination li.disable {
