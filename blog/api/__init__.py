@@ -9,7 +9,7 @@ from blog.api.user import UserList, UserDetail
 from combojsonapi.spec import ApiSpecPlugin
 
 
-def create_api_spec_plugin(app):
+def create_api_spec_plugin(app) -> ApiSpecPlugin:
     api_spec_plugin = ApiSpecPlugin(
         app=app,
         tags={
@@ -23,7 +23,7 @@ def create_api_spec_plugin(app):
     return api_spec_plugin
 
 
-def init_api(app: Flask):
+def init_api(app: Flask) -> None:
     api_spec_plugin = create_api_spec_plugin(app)
     api = Api(app,
               plugins=[
@@ -40,4 +40,4 @@ def init_api(app: Flask):
     api.route(UserList, 'user_list', '/api/users/', tag='User')
     api.route(UserDetail, 'user_detail', '/api/users/<int:id>', tag='User')
 
-    return api
+    # return api
