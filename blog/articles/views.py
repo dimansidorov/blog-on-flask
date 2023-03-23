@@ -80,7 +80,7 @@ def add_article():
             cover = '/uploads/image/default.jpg'
         else:
             cover = blog.app.images.save(request.files['cover'])
-            cover = '/uploads/image' + cover
+            cover = '/uploads/image/' + cover
         article = Article(title=form.title.data, body=form.body.data, author_id=author_id, cover=cover)
         if form.tags.data:
             selected_tags = Tag.query.filter(Tag.id.in_(form.tags.data))

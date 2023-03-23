@@ -7,7 +7,8 @@ from blog.api.article import ArticleList, ArticleDetail
 from blog.api.user import UserList, UserDetail
 
 from combojsonapi.spec import ApiSpecPlugin
-
+from combojsonapi.event import EventPlugin
+from combojsonapi.permission import PermissionPlugin
 
 def create_api_spec_plugin(app) -> ApiSpecPlugin:
     api_spec_plugin = ApiSpecPlugin(
@@ -24,10 +25,14 @@ def create_api_spec_plugin(app) -> ApiSpecPlugin:
 
 
 def init_api(app: Flask) -> None:
+    event_plugin = EventPlugin()
     api_spec_plugin = create_api_spec_plugin(app)
+    permission_plugin = PermissionPlugin(strict=False)
     api = Api(app,
               plugins=[
-                  api_spec_plugin
+                  api_spec_plugin,
+                  event_plugin,
+                  permission_plugin
               ]
               )
 
