@@ -88,6 +88,6 @@ typing_extensions==4.5.0
 urllib3==1.26.14
 virtualenv==20.20.0
 webencodings==0.5.1
-Werkzeug==1.0.1
+Werkzeug==0.16.0
 WTForms==3.0.1
 zipp==3.15.0
