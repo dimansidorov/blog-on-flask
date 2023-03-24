@@ -70,7 +70,7 @@ Pygments==2.14.0
 pymdown-extensions==9.10a3
 pyproject_hooks==1.0.0
 pyrsistent==0.19.3
-python-dotenv==1.0.0
+python-dotenv==0.21.1
 PyYAML==6.0
 rapidfuzz==2.13.7
 requests==2.28.2
