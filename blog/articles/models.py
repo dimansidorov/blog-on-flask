@@ -21,7 +21,7 @@ class Article(db.Model):
     update_at = db.Column(db.DateTime, default=datetime.datetime.utcnow(), onupdate=datetime.datetime.utcnow())
     cover = db.Column(db.String(50), nullable=False, default='default.jpg')
     author = db.relationship('Author', back_populates='article')
-    active = db.Column(db.Boolean, default=False)
+    active = db.Column(db.Boolean, default=False, nullable=False)
     tag = db.relationship(
         'Tag',
         secondary=article_tag_association_table,
