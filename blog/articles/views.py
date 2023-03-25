@@ -26,7 +26,7 @@ def article_list():
     per_page = 3
     try:
         page = request.args.get('page', type=int)
-        all_articles = Article.query.paginate(page=page, per_page=per_page)
+        all_articles = Article.query.filter_by(active=True).paginate(page=page, per_page=per_page)
     except werkzeug.exceptions.NotFound:
         all_articles = Article.query.paginate(page=1, per_page=per_page)
         error = 'Такой страницы не существует'
@@ -48,7 +48,7 @@ def article_detail(id):
     _article = Article.query.filter_by(id=id).options(
         joinedload(Article.tag)
     ).one_or_none()
-    if _article is None:
+    if _article is None or _article.active == False:
         title = 'Статья не найдена'
         return render_template('articles/article_detail.html',
                                title=title)
@@ -99,4 +99,13 @@ def add_article():
     return render_template('articles/add_article.html', form=form, title=title, errors=error)
 
 
-
+@articles.route('/delete/<id>', endpoint='delete_article')
+def delete_article(id):
+    article = Article.query.filter_by(id=id).one_or_none()
+    if current_user.id == article.author.user.id:
+        try:
+            article.active = False
+            db.session.commit()
+        except Exception as err:
+            print(err)
+    return redirect(url_for('articles.list'))
