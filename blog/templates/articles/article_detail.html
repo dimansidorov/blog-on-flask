@@ -18,7 +18,7 @@
                         {% if current_user.id ==  article.author.user.id %}
                             <div class="container text-end">
                                 <a class="btn my-update-button btn-sm mb-1" title="Редактировать статью"
-{#                                   href="{{ url_for('articles.update_article', id=article.id) }}"#}
+                                   href="{{ url_for('articles.update_article', id=article.id) }}"
                                    >
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-pencil-square" viewBox="0 0 16 16">

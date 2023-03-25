@@ -27,13 +27,13 @@
                 <h2 class="text-center">{{ article.title }}</h2>
                 <div class="">
                     {{ form.title(for='floatingInput', class="form-control rounded-2",
-                    placeholder='Новое название статьи', rows=2 )}}
+                    placeholder='Новое название статьи',value=article.title) }}
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3 m-auto">
                 <p class="text-start"> {{ article.body }}</p>
                 <div>
-
+                    {% set f = form.body.process_data(article.body) %}
                     {{ form.body(for='floatingInput', class="form-control rounded-2",
                     rows=10,
                     placeholder='Новый текст статьи') }}
@@ -52,7 +52,7 @@
 
                 </div>
             </div>
-        {{ form.submit(class="btn my-success-button m-3") }}
+            {{ form.submit(class="btn my-success-button m-3") }}
 
         </form>
 

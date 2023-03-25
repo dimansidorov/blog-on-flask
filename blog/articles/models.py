@@ -35,8 +35,8 @@ class Article(db.Model):
         return self.title
 
     @staticmethod
-    def show_date(date):
-        return str(date)[:-10]
+    def show_date(date: datetime) -> str:
+        return date.strftime("%d.%m.%Y, %H:%M:%S")
 
 
 class Tag(db.Model):
