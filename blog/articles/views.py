@@ -97,3 +97,6 @@ def add_article():
             return redirect(url_for("articles.detail", id=article.id, title=article.title))
 
     return render_template('articles/add_article.html', form=form, title=title, errors=error)
+
+
+
