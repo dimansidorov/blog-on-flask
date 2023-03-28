@@ -80,7 +80,7 @@ def add_article():
 
         file = request.files['cover']
         if file.filename == '':
-            cover = '/uploads/image/default.jpg'
+            cover = '/uploads/image/default.png'
         else:
             cover = blog.app.images.save(request.files['cover'])
             cover = os.path.join('/uploads/image/', cover)
