@@ -88,8 +88,44 @@ def login():
 
 @auth_app.route('/login-as/', methods=['GET', 'POST'])
 def login_as():
-    if not (current_user.is_authenticated and current_user.is_staff):
-        raise NotFound
+    # if not (current_user.is_authenticated and current_user.is_staff):
+    #     raise NotFound
+    if current_user.is_authenticated:
+        return redirect(url_for('articles.list'))
+
+    title = 'Регистрация для администратора'
+    error = None
+    form = RegisterUserForm(request.form)
+
+    if request.method == "POST" and form.validate_on_submit():
+        if User.query.filter_by(username=form.username.data).count():
+            form.username.errors.append("Такой пользователь уже существует!")
+            return render_template("auth/register.html", form=form, title=title)
+
+        if User.query.filter_by(email=form.email.data).count():
+            form.email.errors.append("Пользователь с таким email уже существует!")
+            return render_template("auth/register.html", form=form, title=title)
+
+        user = User(
+            first_name=form.first_name.data,
+            last_name=form.last_name.data,
+            username=form.username.data,
+            email=form.email.data,
+            is_staff=True,
+        )
+        user.password = form.password.data
+        db.session.add(user)
+        try:
+            db.session.commit()
+        except IntegrityError:
+            current_app.logger.exception("Could not create user!")
+            error = "Could not create user!"
+        else:
+            current_app.logger.info(f"Created user {user}")
+            login_user(user)
+            return redirect(url_for("articles.list"))
+    return render_template("auth/register.html", form=form, error=error, title=title)
+
 
 
 @auth_app.route("/logout/", endpoint="logout")

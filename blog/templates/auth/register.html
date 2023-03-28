@@ -4,7 +4,7 @@
 {% block content %}
     <div class="container">
         <div class="m-auto mb-3 cover-container article">
-            <h2 class="text-center mb-4">Регистрация</h2>
+            <h2 class="text-center mb-4">{{ title }}</h2>
             {% if errors %}
                 {% for error in errors %}
                     <div class="alert alert-danger" role="alert">

@@ -1,3 +1,5 @@
+import datetime
+
 import werkzeug
 from flask import Blueprint, render_template, redirect, request, current_app, url_for
 from flask_login import login_required, current_user
@@ -23,7 +25,7 @@ articles = Blueprint(
 @articles.route('/', endpoint='list')
 def article_list():
     error = None
-    per_page = 3
+    per_page = 1
     try:
         page = request.args.get('page', type=int)
         all_articles = Article.query.filter_by(active=True).paginate(page=page, per_page=per_page)
@@ -43,7 +45,7 @@ def article_list():
 
 
 @articles.route('/<id>', endpoint='detail')
-@login_required
+# @login_required
 def article_detail(id):
     _article = Article.query.filter_by(id=id).options(
         joinedload(Article.tag)
@@ -131,6 +133,7 @@ def update_article(id):
             cover = blog.app.images.save(request.files['cover'])
             cover = '/uploads/image/' + cover
             article.cover = cover
+        article.update_at = datetime.datetime.utcnow()
         try:
             db.session.commit()
         except Exception as err:
