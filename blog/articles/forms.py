@@ -17,3 +17,12 @@ class CreateArticleForm(FlaskForm):
     submit = SubmitField('Добавить статью')
 
 
+class UpdateArticleForm(FlaskForm):
+    title = StringField(
+        'Название статьи'
+    )
+    body = TextAreaField(
+        'Статья'
+    )
+    cover = FileField('Обложка')
+    submit = SubmitField('Обновить статью')

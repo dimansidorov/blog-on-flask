@@ -15,7 +15,7 @@ import os
 from flask_migrate import Migrate
 
 
-UPLOAD_FOLDER = 'blog/static'
+UPLOAD_FOLDER = 'blog/static/uploads/image'
 
 
 def register_extensions(app: Flask):

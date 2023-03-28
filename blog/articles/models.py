@@ -21,6 +21,7 @@ class Article(db.Model):
     update_at = db.Column(db.DateTime, default=datetime.datetime.utcnow(), onupdate=datetime.datetime.utcnow())
     cover = db.Column(db.String(50), nullable=False, default='default.jpg')
     author = db.relationship('Author', back_populates='article')
+    active = db.Column(db.Boolean, default=True, nullable=False)
     tag = db.relationship(
         'Tag',
         secondary=article_tag_association_table,
@@ -34,8 +35,8 @@ class Article(db.Model):
         return self.title
 
     @staticmethod
-    def show_date(date):
-        return str(date)[:-10]
+    def show_date(date: datetime) -> str:
+        return date.strftime("%d.%m.%Y, %H:%M:%S")
 
 
 class Tag(db.Model):

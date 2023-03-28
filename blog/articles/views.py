@@ -7,7 +7,7 @@ from sqlalchemy.orm import joinedload
 
 from blog.database import db
 
-from blog.articles.forms import CreateArticleForm
+from blog.articles.forms import CreateArticleForm, UpdateArticleForm
 from blog.authors.models import Author
 from blog.articles.models import Article, Tag
 import blog.app
@@ -26,7 +26,7 @@ def article_list():
     per_page = 3
     try:
         page = request.args.get('page', type=int)
-        all_articles = Article.query.paginate(page=page, per_page=per_page)
+        all_articles = Article.query.filter_by(active=True).paginate(page=page, per_page=per_page)
     except werkzeug.exceptions.NotFound:
         all_articles = Article.query.paginate(page=1, per_page=per_page)
         error = 'Такой страницы не существует'
@@ -48,7 +48,7 @@ def article_detail(id):
     _article = Article.query.filter_by(id=id).options(
         joinedload(Article.tag)
     ).one_or_none()
-    if _article is None:
+    if _article is None or _article.active == False:
         title = 'Статья не найдена'
         return render_template('articles/article_detail.html',
                                title=title)
@@ -97,3 +97,53 @@ def add_article():
             return redirect(url_for("articles.detail", id=article.id, title=article.title))
 
     return render_template('articles/add_article.html', form=form, title=title, errors=error)
+
+
+@articles.route('/delete/<id>', endpoint='delete_article')
+@login_required
+def delete_article(id):
+    article = Article.query.filter_by(id=id).one_or_none()
+    if current_user.id == article.author.user.id:
+        try:
+            article.active = False
+            db.session.commit()
+        except Exception as err:
+            print(err)
+    return redirect(url_for('articles.list'))
+
+
+@articles.route('/update_article/<int:id>', methods=['GET', 'POST'], endpoint='update_article')
+@login_required
+def update_article(id):
+    article = Article.query.filter_by(id=id).options(
+        joinedload(Article.tag)
+    ).one_or_none()
+    title = f'Редактирование статьи {article.title}'
+    error = None
+    form = UpdateArticleForm(request.form)
+    if request.method == "POST" and form.validate_on_submit():
+        if form.title.data:
+            article.title = form.title.data
+        if form.body.data:
+            article.body = form.body.data
+        file = request.files['cover']
+        if file.filename != '':
+            cover = blog.app.images.save(request.files['cover'])
+            cover = '/uploads/image/' + cover
+            article.cover = cover
+        try:
+            db.session.commit()
+        except Exception as err:
+            return render_template('articles/update_article.html',
+                                   article=article,
+                                   form=form,
+                                   title=title,
+                                   errors=err)
+        else:
+            return redirect(url_for('articles.detail', id=id))
+
+    return render_template('articles/update_article.html',
+                           article=article,
+                           form=form,
+                           title=title,
+                           errors=error)
