@@ -25,4 +25,4 @@ class UpdateArticleForm(FlaskForm):
         'Статья'
     )
     cover = FileField('Обложка')
-    submit = SubmitField('Обновить статью')
+    submit = SubmitField('Обновить')

@@ -41,10 +41,11 @@ def register_commands(app: Flask):
 
 
 app = Flask(__name__)
-api = init_api(app)
+
 cfg_name = os.environ.get("CONFIG_NAME") or "DevConfig"
 app.config.from_object(f'blog.configs.{cfg_name}')
 app.config['UPLOADED_IMAGES_DEST'] = UPLOAD_FOLDER
+api = init_api(app)
 
 images = UploadSet('images', IMAGES)
 configure_uploads(app, images)

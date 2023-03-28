@@ -4,10 +4,10 @@
 {% block content %}
 
     <div class="">
-        <div class="container article">
+        <div class="container article cover-container">
             <div class="row">
-                <div class="col-11"></div>
-                <a class="btn col-1"
+                <div class="col-10"></div>
+                <a class="btn col-2 text-end"
                    href="{{ url_for('articles.detail', id=article.id) }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                          class="bi bi-x-lg"
@@ -42,22 +42,20 @@
                     {{ form.title(for='floatingInput', class="rounded-2 col",
                     placeholder='Например: Побег из шоушенка',value=article.title) }}
 
-                </div>
-
-                <div class="row">
                     {% set f = form.body.process_data(article.body) %}
                     {{ form.body.label(class="text-start my-2") }}
-                    {{ form.body(for='floatingInput', class="rounded-2 col", rows=10,
+                    {{ form.body(for='floatingInput', class="rounded-2 col", rows=5,
                     placeholder='Например: Давным-давно в далекой Галактике... ') }}
 
-                </div>
-                <div class="row">
 
                     {{ form.cover.label(for="formFile", class="text-start my-2") }}
                     {{ form.cover(class="form-control col", type="file", id="formFile") }}
 
                 </div>
-                {{ form.submit(class="btn my-success-button mt-3") }}
+                    <a class="btn my-delete-button mt-3" href="{{ url_for('articles.list') }}">
+                        Удалить
+                    </a>
+                    {{ form.submit(class="btn my-update-button mt-3") }}
 
 
             </form>

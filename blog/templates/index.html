@@ -2,15 +2,49 @@
 
 {% block content %}
 
-    <div class="d-flex h-100 text-center">
-        <div class="container mt-5">
+    <div class="d-flex h-100 text-center ">
+        <div class="container">
             <h1 class="text-center">Главная страница данного проекта.</h1>
-        <p class="lead text-center">Данный pet-project написан при помощи фреймворка <b> flask </b>. В нижней части сайта прикрепил мои контакты.</p>
-        <p class="lead text-center">
-            <a href="{{ url_for('articles.list') }}" class="mt-3 btn btn-lg my-success-button">Познакомиться с проектом</a>
-        </p>
-    </div>
+            <p class="lead text-center">
+                <strong>
+                    Мой пет-проект - это блог, написанный на Flask. Пользователи могут создавать учетные записи, войти в
+                    систему и создавать, редактировать и удалять свои записи в блоге. Приложение включает в себя систему
+                    аутентификации пользователей и публикацию статей в блоге.
+                    Респонсивный дизайн и интуитивно понятный интерфейс делают его простым в использовании.
+                    Так же реализованы api-эндпоинты и подключен swagger.
+                </strong>
+            </p>
+            <ul class="lead text-center container cover-container"> <h4> Стек технологий, используемых в этом проекте: </h4>
+                <li class="lead text-start">
+                    Flask - легковесный фреймворк на Python;
+                </li>
+                <li class="lead text-start">
+                    SQLAlchemy - ORM для работы с базами данных;
+                </li>
+                <li class="lead text-start">
+                    Jinja2 - шаблонизатор для создания пользовательского интерфейса;
+                </li>
+                <li class="lead text-start">
+                    Flask-Login для реализации системы аутентификации;
+                </li>
+                <li class="lead text-start">
+                    Flask-WTF - для реализации системы аутентификации и управления формами;
+                </li>
+                <li class="lead text-start">
+                    HTML, CSS - фронтенд;
+                </li>
+                <li class="lead text-start">
+                    Git - для управления версиями;
+                </li>
+                <li class="lead text-start">
+                    Flask-COMBO-JSONAPI, ComboJSONAPI - для работы с API
+                </li>
+            </ul>
+
+            <a href="{{ url_for('articles.list') }}" class="mt-3 btn btn-lg my-success-button">Познакомиться с
+                проектом</a>
         </div>
+    </div>
 
 
 {% endblock %}
