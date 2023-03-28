@@ -1,4 +1,5 @@
 import datetime
+import os.path
 
 import werkzeug
 from flask import Blueprint, render_template, redirect, request, current_app, url_for
@@ -25,7 +26,7 @@ articles = Blueprint(
 @articles.route('/', endpoint='list')
 def article_list():
     error = None
-    per_page = 1
+    per_page = 2
     try:
         page = request.args.get('page', type=int)
         all_articles = Article.query.filter_by(active=True).paginate(page=page, per_page=per_page)
@@ -82,7 +83,7 @@ def add_article():
             cover = '/uploads/image/default.jpg'
         else:
             cover = blog.app.images.save(request.files['cover'])
-            cover = '/uploads/image' + cover
+            cover = os.path.join('/uploads/image/', cover)
         article = Article(title=form.title.data, body=form.body.data, author_id=author_id, cover=cover)
         if form.tags.data:
             selected_tags = Tag.query.filter(Tag.id.in_(form.tags.data))
@@ -131,8 +132,9 @@ def update_article(id):
         file = request.files['cover']
         if file.filename != '':
             cover = blog.app.images.save(request.files['cover'])
-            cover = '/uploads/image/' + cover
+            cover = os.path.join('static/uploads/', cover)
             article.cover = cover
+            print(cover)
         article.update_at = datetime.datetime.utcnow()
         try:
             db.session.commit()
