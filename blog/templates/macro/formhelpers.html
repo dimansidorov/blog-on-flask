@@ -1,7 +1,8 @@
 {% macro render_field(field) %}
     <div class="form-floating mb-3 text-muted form-group">
+        {{ field.label(for='floatingInput', class="text-end mb-2") }}
         {{ field(id="floatingInput", class="form-control rounded-2 " + (" is-invalid" if field.errors else ""))|safe }}
-        {{ field.label(for='floatingInput', class="") }}
+
         {% if field.errors %}
             {% for error in field.errors %}
                 <div class="invalid-feedback">

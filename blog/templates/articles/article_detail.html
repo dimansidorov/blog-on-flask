@@ -13,10 +13,10 @@
                 </div>
 
                 <div class="col p-4 d-flex flex-column position-static">
-                    <div class="d-flex flex-row justify-content-between">
-                        <h1 class="text-start m-auto">{{ article.title }}</h1>
+                    <div class="row justify-content-between mt-3">
+                        <h1 class="text-start col">{{ article.title }}</h1>
                         {% if current_user.id ==  article.author.user.id %}
-                            <div class="container text-end">
+                            <div class="container col-3">
                                 <a class="btn my-update-button btn-sm mb-1" title="Редактировать статью"
                                    href="{{ url_for('articles.update_article', id=article.id) }}"
                                    >

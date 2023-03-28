@@ -19,10 +19,10 @@ class CreateArticleForm(FlaskForm):
 
 class UpdateArticleForm(FlaskForm):
     title = StringField(
-        'Новое название статьи'
+        'Название статьи'
     )
     body = TextAreaField(
-        'Обновленный текст статьи'
+        'Статья'
     )
-    cover = FileField('Новая обложка')
+    cover = FileField('Обложка')
     submit = SubmitField('Обновить статью')

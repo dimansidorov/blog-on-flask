@@ -5,11 +5,9 @@
     <div class="container mb-2">
         <h3 class="text-center mb-4">{{ title }}</h3>
         {% if error %}
-            {#            {% for error in errors %}#}
             <div class="alert alert-danger text-center" role="alert">
                 {{ error }}
             </div>
-            {#            {% endfor %}#}
         {% endif %}
 
         {% for item in articles.items %}

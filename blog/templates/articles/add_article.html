@@ -4,7 +4,18 @@
 {% block content %}
     <div class="container">
         <div class="m-auto mb-3 cover-container article">
-            <h2 class="text-center mt-2 mb-4"> Добавление статьи </h2>
+            <div class="row">
+                <div class="col-11"></div>
+                <a class="btn col-1"
+                   href="{{ url_for('articles.list') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                         class="bi bi-x-lg"
+                         viewBox="0 0 16 16">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                    </svg>
+                </a>
+            </div>
+            <h2 class="text-center mb-4"> Добавление статьи </h2>
 
             {% if errors %}
                 {% for error in errors %}
@@ -20,8 +31,10 @@
                 {% for field in ['title', 'body', 'tags'] %}
                     {{ render_field(form[field]) }}
                 {% endfor %}
-                <div class="mb-3">
-                    {{ form.cover(class="form-label") }}
+                <div class="form-floating mb-3 text-muted form-group">
+                    {{ form.cover.label(for="formFile", class="text-end", for='floatingInput') }}
+                    {{ form.cover(class="form-control", type="file", id="formFile") }}
+
                 </div>
                 <div>
                     {{ form.submit(class="btn my-success-button m-3") }}
